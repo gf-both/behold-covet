@@ -8,6 +8,14 @@
 
 ---
 
+I did not find this in the Torah. I found it in myself first.
+
+For years I had been drawing a map of my own descents — the sequence I kept living, and kept watching the people I love live. It begins with a way of looking: something — a person, a business, a version of my life — seen through the feeling that something is missing. The wanting ignites. The hand follows the eye. Then comes the aftermath every taker knows: the thing obtained delivers nothing, and shame arrives to collect. And shame, I noticed, never works alone. It hires a protector — an inner voice whose one job is to make sure I am never exposed like that again — and the bodyguard, left in charge long enough, becomes a warden, and the warden's material is a hardening heart. I drew the whole circuit, descent and return, before any verse entered the picture. The way back, in my map, was never strength; it was vulnerability with accountability — being seen, and saying so. That framework was my own creation, built from the inside out. It is the diagram called *the descent* in this essay's companion site.
+
+Then I reread the story of the garden — and found my map already drawn, three thousand years earlier, compressed into the vocabulary of two verses. And at its center sat the discovery that undid me: there was never one forbidden tree. *Any* tree becomes the forbidden tree the moment it is looked at through lack. Which means the entire drama turns on a shift so subtle it is nearly invisible — no object moves, nothing is added to the world and nothing is taken from it, only the direction of a look changes — **and that subtle shift is the most powerful force in the story: it alone decides whether the same landscape is a garden or an exile.**
+
+Here is what I found.
+
 Two verses, a chapter apart, describe the same trees.
 
 In the first, the narrator surveys the garden as G‑d plants it: "every tree pleasant to the sight (*nechmad l'mar'eh*) and good for food (*tov l'ma'achal*)" (Genesis 2:9). In the second, Eve looks at one tree: "the woman saw that the tree was good for food (*tov l'ma'achal*), and that it was a craving to the eyes (*ta'avah la'einayim*), and desirable (*nechmad*) to make one wise" (Genesis 3:6).
