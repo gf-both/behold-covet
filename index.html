@@ -43,6 +43,7 @@ main{max-width:980px;margin:0 auto;padding:22px}
 .legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 18px;font-size:13px;color:var(--muted)}
 .vlook{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .vlook select,.vlook input{font:14px Georgia,serif;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.card{scroll-margin-top:130px}
 </style>
 </head>
 <body>
@@ -207,7 +208,7 @@ function entryCards(list){
     const GZ={text:['Gaze in the text','var(--phr)'],inferred:['Gaze inferred','#9a9184'],behold:['Hinneh — behold','var(--accent)']};
     const gz=e.gaze?`<span class="badge" style="background:${GZ[e.gaze][1]}">${GZ[e.gaze][0]}</span> `:'';
     const act=e.struct&&AT[e.struct.at]?`<span class="badge" style="background:${AT[e.struct.at][1]}">${AT[e.struct.at][0]}</span> `:'';
-    return `<div class="card"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline">
+    return `<div class="card" id="${cid(e.title)}"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline">
       <b style="font-size:16.5px">${e.title}</b><span>${gz}${act}<span class="badge b-x">${e.type}</span></span></div>
       <div class="pairgrid">${e.right.length?`<div>${left}</div><div>${right}</div>`:`<div style="grid-column:1/-1">${left}</div>`}</div>
       ${strip(e.struct)}
@@ -240,13 +241,15 @@ const PAIRS=[["2 · The first taking — and the gift turned to blame", "thesis"
 const PAIRMAP={};
 PAIRS.forEach(([d,dt,r,rt,k])=>{PAIRMAP[d]={o:r,t:rt,dir:'Return',k};PAIRMAP[r]={o:d,t:dt,dir:'Descent',k};});
 function goTab(t){const b=document.querySelector('nav button[data-t="'+t+'"]');if(b)b.click();}
+function cid(t){return 'c_'+t.replace(/[^A-Za-z0-9֐-׿]+/g,'_');}
+function goCard(t,id){goTab(t);setTimeout(()=>{const el=document.getElementById(id);if(el){try{el.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}el.style.transition='box-shadow .3s';el.style.boxShadow='0 0 0 3px var(--hl)';setTimeout(()=>el.style.boxShadow='',2000);}},80);}
 function pairLine(t){const p=PAIRMAP[t];if(!p)return '';
-  return `<div class="src" style="margin-top:5px;border-top:1px dashed var(--line);padding-top:5px"><a href="#" style="color:var(--accent);text-decoration:none" onclick="goTab('${p.t}');return false">⇄ ${p.dir}: ${p.o}</a> <span style="color:var(--muted)">— ${p.k}</span></div>`;}
+  return `<div class="src" style="margin-top:5px;border-top:1px dashed var(--line);padding-top:5px"><a href="#" style="color:var(--accent);text-decoration:none" onclick="goCard('${p.t}','${cid(p.o)}');return false">⇄ ${p.dir}: ${p.o}</a> <span style="color:var(--muted)">— ${p.k}</span></div>`;}
 function testCards(list){
   const PB={'Prediction confirmed':'var(--phr)','Pattern replicated':'var(--clu)','Unpredicted find':'var(--inv)','Counter-scene':'var(--accent)','Bonus find':'var(--inv)','Convergence':'var(--dup)','Corpus finding':'var(--clu)','Collision: fall':'var(--inv)','Collision: judgment':'#9a8c66','Collision: repair':'var(--phr)','Collision: wisdom':'var(--clu)','Shame':'var(--inv)','Hardened':'var(--inv)','Prison':'#9a8c66','Stone':'var(--inv)','Protocol':'var(--phr)','Returned':'var(--phr)','Bridge':'var(--accent)','Second voice':'var(--inv)','Fired':'var(--phr)','Warden':'#9a8c66','Technique':'var(--clu)','Test':'var(--clu)','Shame arrives':'var(--inv)','Devourer':'var(--inv)','Return':'var(--phr)','Grammar':'var(--clu)',"Shame's silence":'var(--inv)','The answer':'var(--phr)','The reversal':'var(--accent)','Root collision':'var(--inv)','Law quotes narrative':'var(--clu)','The ring':'var(--accent)','The sent hand':'var(--clu)','Fist and palm':'var(--phr)','The bite':'var(--inv)','Look and live':'var(--phr)','The bush':'var(--accent)','Emet':'var(--phr)','Doubt':'var(--inv)','The door':'#9a8c66','The entry':'var(--inv)','Reversal':'var(--inv)','The lifting':'var(--phr)','The turn':'var(--phr)','Dotted':'#9a8c66','Enlarged':'var(--accent)','Small':'var(--clu)','Broken':'var(--inv)','Inverted':'var(--clu)','Silence':'var(--inv)','On the heart':'var(--accent)','Anointed':'var(--clu)','The offering':'var(--phr)','Smashed':'#9a8c66'};
   return list.map(e=>{
     const left=e.left.map(pPanel).join(''), right=e.right.map(pPanel).join('');
-    return `<div class="card"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline">
+    return `<div class="card" id="${cid(e.title)}"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline">
       <b style="font-size:16.5px">${e.title}</b><span class="badge" style="background:${PB[e.type]||'var(--accent)'}">${e.type}</span></div>
       <div class="pairgrid">${e.right.length?`<div>${left}</div><div>${right}</div>`:`<div style="grid-column:1/-1">${left}</div>`}</div>
       ${strip(e.struct)}
@@ -401,7 +404,7 @@ function renderChabad(){
   main.innerHTML=`<div class="card" style="max-width:760px;margin:0 auto;padding:34px 40px">
   <div style="color:var(--muted);font-size:13px;margin-bottom:6px">An essay in the spirit of chabad.org — prepared for rabbinic review</div>
   <h2 style="margin:0 0 4px;font-weight:normal">There Is No Forbidden Tree</h2>
-  <div style="color:var(--muted);margin-bottom:20px">What changed in Eden was not the tree. It was the eyes.</div>
+  <div style="color:var(--muted);margin-bottom:20px">What changed in Eden was not the tree. It was the way of seeing.</div>
   ${P(`Two verses, a chapter apart, describe the same trees. When G‑d plants the garden, the Torah says every tree was <i>nechmad l&rsquo;mar&rsquo;eh</i> — &ldquo;desirable to the sight&rdquo; — and good for food (Genesis 2:9). When Chavah looks at one tree, the Torah repeats the same words, rearranged: good for food, a craving to the eyes, <i>nechmad</i> to make one wise (3:6). The tree did not change between the two verses. The <i>seeing</i> changed — and the Torah shows it by letting the fall happen inside the vocabulary itself.`)}
   ${P(`The Torah never names the species of the tree, and the Midrash teaches that the concealment is deliberate.<sup>1</sup> Why hide it? Perhaps because naming it would let us believe the danger lives in a particular tree — when the entire story is telling us the danger lives in a particular way of looking. In the narrator&rsquo;s description, it is the Tree of <i>Life</i> that stands &ldquo;in the midst of the garden&rdquo; (2:9); by the time Chavah speaks with the serpent, &ldquo;the tree in the midst of the garden&rdquo; is the forbidden one (3:3). Nothing moved. The center of the garden is the point of view.`)}
   ${P(`And listen to the serpent&rsquo;s method: he tells no lie, technically. G‑d had said, &ldquo;of <b>every</b> tree of the garden you may surely eat&rdquo; — with one exception. The serpent asks: &ldquo;has G‑d said you shall not eat of <b>any</b> tree?&rdquo; (2:16 / 3:1). He moves a single word from the side of permission to the side of prohibition, and a world of gift becomes a world of denial. Standing amid total abundance, Chavah is taught to experience it as one deprivation. Nothing was missing until a sentence made it missing.`)}
