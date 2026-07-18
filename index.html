@@ -242,7 +242,7 @@ const PAIRMAP={};
 PAIRS.forEach(([d,dt,r,rt,k])=>{PAIRMAP[d]={o:r,t:rt,dir:'Return',k};PAIRMAP[r]={o:d,t:dt,dir:'Descent',k};});
 function goTab(t){const b=document.querySelector('nav button[data-t="'+t+'"]');if(b)b.click();}
 function cid(t){return 'c_'+t.replace(/[^A-Za-z0-9֐-׿]+/g,'_');}
-function goCard(t,id){goTab(t);setTimeout(()=>{const el=document.getElementById(id);if(el){try{el.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}el.style.transition='box-shadow .3s';el.style.boxShadow='0 0 0 3px var(--hl)';setTimeout(()=>el.style.boxShadow='',2000);}},80);}
+function goCard(t,id){goTab(t);setTimeout(()=>{const el=document.getElementById(id);if(el){try{el.scrollIntoView({block:'start'});}catch(e){}el.style.transition='box-shadow .3s';el.style.boxShadow='0 0 0 3px var(--hl)';setTimeout(()=>el.style.boxShadow='',2000);}},80);}
 function pairLine(t){const p=PAIRMAP[t];if(!p)return '';
   return `<div class="src" style="margin-top:5px;border-top:1px dashed var(--line);padding-top:5px"><a href="#" style="color:var(--accent);text-decoration:none" onclick="goCard('${p.t}','${cid(p.o)}');return false">⇄ ${p.dir}: ${p.o}</a> <span style="color:var(--muted)">— ${p.k}</span></div>`;}
 function testCards(list){
