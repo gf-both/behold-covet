@@ -1,6 +1,8 @@
-# Behold / Covet
+# The Look
 
-**How the Tanakh guards the gaze that would turn the given into the taken.**
+**It was never about the tree. It was the look.**
+
+*How the Tanakh guards the gaze that would turn the given into the taken — the Behold / Covet framework.*
 
 An interactive research explorer by Gastón Frydlewski: the Gen 2:9 / 3:6 inversion, corpus-verified word studies across the Westminster Leningrad Codex, the thesis stations, pre-registered tests over the Prophets and Writings, the inner arc (shame → critic → hardened heart → return), gematria, the Masoretic marks, and the full-scan parallel detector.
 

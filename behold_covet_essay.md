@@ -1,6 +1,8 @@
-# Behold / Covet
+# The Look
 
-### How the Tanakh guards the gaze that would turn the given into the taken
+### It was never about the tree. It was the look.
+
+*How the Tanakh guards the gaze that would turn the given into the taken*
 
 *by Gastón Frydlewski — with a computational study of the Westminster Leningrad Codex*
 
@@ -28,7 +30,7 @@ Creation's tenth utterance is pure gift addressed to the eye: *hinneh natati* �
 
 Sinai's tenth utterance is the only commandment in the Decalogue that legislates perception rather than action: *lo tachmod* — "you shall not **covet**" (Exodus 20:17). Its verb is the root of *nechmad*, the garden's word for the trees. And when Deuteronomy repeats the commandment it adds a second verb, *lo tit'aveh* (5:21) — the root of *ta'avah*, Eve's craving. Between them, the two versions of the Decalogue use precisely the two desire-words of Genesis 3:6. The law against coveting quotes the fall.
 
-One more symmetry: the tenth of creation is spoken over *every tree*; the tenth of Sinai lists *everything that is your neighbor's* — house, wife, field, servant, ox, donkey. The same inventory of the world, first as gift, then as temptation. Nothing differs in the objects. Only the direction of the look. Hence the name of this project: *Behold / Covet*.
+One more symmetry: the tenth of creation is spoken over *every tree*; the tenth of Sinai lists *everything that is your neighbor's* — house, wife, field, servant, ox, donkey. The same inventory of the world, first as gift, then as temptation. Nothing differs in the objects. Only the direction of the look. Hence the name of the framework at the heart of this project: *Behold / Covet* — the two looks, given their proper names.
 
 ## The arc
 
