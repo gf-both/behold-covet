@@ -1,6 +1,6 @@
 # The Look
 
-**It was never about the tree. It was the look.**
+**It was never about the tree. It was the way of seeing.**
 
 *How the Tanakh guards the gaze that would turn the given into the taken — the Behold / Covet framework.*
 
