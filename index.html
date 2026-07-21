@@ -737,7 +737,6 @@ function drawCards(){
   });
   let html=`<div class="count">${hits.length} of ${ALLCARDS.length} cards${hits.length>cardShown?` — showing ${cardShown}`:''}</div>`;
   hits.slice(0,cardShown).forEach(c=>{
-    html+=`<div style="color:var(--muted);font-size:12px;margin:14px 0 -8px">${c.label}</div>`;
     html+= c.kind==='entry' ? entryCards([c.e]) : testCards([c.e]);
   });
   if(hits.length>cardShown) html+=`<div style="text-align:center;margin:10px 0"><button class="more" style="margin:0" onclick="cardShown+=30;drawCards()">more cards (${hits.length-cardShown} left)</button></div>`;
