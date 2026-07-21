@@ -62,17 +62,18 @@ main{max-width:980px;margin:0 auto;padding:22px}
 <button data-t="thesis">Thesis 1: The Look</button>
 <button data-t="pairs">Thesis 2: The pairs</button>
 <button data-t="arc">The arc</button>
-<button data-t="tens">The two tens</button>
-<button data-t="leviticus">Leviticus</button>
-<button data-t="gematria">Gematria</button>
-<button data-t="marks">The marks</button>
 <button data-t="heart">The heart</button>
 <button data-t="serpent">The serpent</button>
 <button data-t="shame">Shame</button>
 <button data-t="critic">The critic</button>
 <button data-t="hineni">Hinneh / Hineni</button>
+<button data-t="tens">The two tens</button>
+<button data-t="leviticus">Leviticus</button>
+<button data-t="gematria">Gematria</button>
+<button data-t="marks">The marks</button>
 <button data-t="prophets">The tests</button>
-<button data-t="scan">Full scan</button>
+<button data-t="scan">Project scanner</button>
+<button data-t="rawscan">Pair scanner</button>
 <button data-t="verse">Verse lookup</button>
 <button data-t="about">About the method</button>
 </nav>
@@ -178,6 +179,7 @@ function render(tab){
   else if(tab==='descent') renderDescent();
   else if(tab==='chassidus') renderChabad();
   else if(tab==='scan') renderScan();
+  else if(tab==='rawscan') renderRawScan();
   else if(tab==='verse') renderVerse();
   else renderAbout();
 }
@@ -682,20 +684,35 @@ const ALLCARDS=[];
 SECTIONS.forEach(([k,label,kind])=>{ (DATA[k]||[]).forEach(e=>ALLCARDS.push({tab:k,label,kind,e})); });
 function cardAt(e){ return (e.struct&&e.struct.at)||''; }
 let cardShown=12;
+function renderScan(){
+  cardShown=12;
+  const types=[...new Set(ALLCARDS.map(c=>c.e.type||''))].filter(x=>x).sort();
+  main.innerHTML=`<div class="card" style="border-left:4px solid var(--accent)">
+  <b style="font-size:17px">Project scanner — every card, one place</b>
+  <div class="comment">All ${ALLCARDS.length} cards of the project, from every section, filterable by the pills they carry — the given / taken / guarded axis, the gaze tier, each card’s own type, book, and free text. The raw verse-pair scanner has its own tab.</div></div>
+  <div class="filters">
+    <label>Section</label><select id="cSec"><option value="">all</option>${SECTIONS.map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select>
+    <label>Given / Taken</label><select id="cAt"><option value="">any</option><option value="give">Given</option><option value="take">Taken</option><option value="guard">Guarded</option></select>
+    <label>Gaze</label><select id="cGz"><option value="">any</option><option value="text">in the text</option><option value="inferred">inferred</option><option value="behold">hinneh — behold</option></select>
+    <label>Pill</label><select id="cTy"><option value="">any</option>${types.map(t=>`<option>${t}</option>`).join('')}</select>
+    <label>Book</label><select id="cBook"><option value="">any</option>${['Genesis','Exodus','Leviticus','Numbers','Deuteronomy','Samuel','Kings','Isaiah','Jeremiah','Ezekiel','Psalms','Proverbs','Job','Esther','Joshua','Chronicles'].map(b=>`<option>${b}</option>`).join('')}</select>
+    <input type="text" id="cQ" placeholder="search title, verse, text — e.g. Leah, Genesis 3, hineni">
+  </div><div id="cardList"></div>`;
+  ['cSec','cAt','cGz','cTy','cBook','cQ'].forEach(id=>document.getElementById(id).oninput=()=>{cardShown=12;drawCards();});
+  drawCards();
+}
 function drawCards(){
   const sec=document.getElementById('cSec').value, at=document.getElementById('cAt').value,
-        ty=document.getElementById('cTy').value, gz=document.getElementById('cGz').value,
-        q=document.getElementById('cQ').value.trim().toLowerCase();
+        gz=document.getElementById('cGz').value, ty=document.getElementById('cTy').value,
+        bk=document.getElementById('cBook').value, q=document.getElementById('cQ').value.trim().toLowerCase();
   const hits=ALLCARDS.filter(c=>{
     if(sec&&c.tab!==sec)return false;
     if(at&&cardAt(c.e)!==at)return false;
     if(ty&&(c.e.type||'')!==ty)return false;
     if(gz&&(c.e.gaze||'')!==gz)return false;
-    if(q){
-      const refs=[...(c.e.left||[]),...(c.e.right||[])].map(v=>typeof v==='string'?v:(v.ref||'')).join(' ');
-      const hay=(c.e.title+' '+refs+' '+(c.e.comment||'')).toLowerCase();
-      if(!hay.includes(q))return false;
-    }
+    const refs=[...(c.e.left||[]),...(c.e.right||[])].map(v=>typeof v==='string'?v:(v.ref||'')).join(' ');
+    if(bk&&!refs.includes(bk))return false;
+    if(q){const hay=(c.e.title+' '+refs+' '+(c.e.comment||'')).toLowerCase(); if(!hay.includes(q))return false;}
     return true;
   });
   let html=`<div class="count">${hits.length} of ${ALLCARDS.length} cards${hits.length>cardShown?` — showing ${cardShown}`:''}</div>`;
@@ -703,26 +720,15 @@ function drawCards(){
     html+=`<div style="color:var(--muted);font-size:12px;margin:14px 0 -8px">${c.label}</div>`;
     html+= c.kind==='entry' ? entryCards([c.e]) : testCards([c.e]);
   });
-  if(hits.length>cardShown) html+=`<div style="text-align:center;margin:10px 0"><button onclick="cardShown+=30;drawCards()" style="font:14px Georgia,serif;padding:8px 22px;border:1px solid var(--line);background:var(--card);border-radius:20px;cursor:pointer">show more cards (${hits.length-cardShown} left) — or scroll on to the 1000-pair scanner below</button></div>`;
+  if(hits.length>cardShown) html+=`<div style="text-align:center;margin:10px 0"><button class="more" style="margin:0" onclick="cardShown+=30;drawCards()">more cards (${hits.length-cardShown} left)</button></div>`;
   document.getElementById('cardList').innerHTML=html;
 }
-function renderAllCardsBlock(){
-  const types=[...new Set(ALLCARDS.map(c=>c.e.type||''))].filter(x=>x).sort();
-  return `<div class="card" style="border-left:4px solid var(--accent)">
-  <b style="font-size:17px">Every card, one place</b>
-  <div class="comment">All ${ALLCARDS.length} cards of the project, from every section, filterable by the pills they carry — the given / taken / guarded axis, the gaze tier, and each card’s own type. The raw verse-pair scanner follows below.</div></div>
-  <div class="filters">
-    <label>Section</label><select id="cSec"><option value="">all</option>${SECTIONS.map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select>
-    <label>Given / Taken</label><select id="cAt"><option value="">any</option><option value="give">Given</option><option value="take">Taken</option><option value="guard">Guarded</option></select>
-    <label>Gaze</label><select id="cGz"><option value="">any</option><option value="text">in the text</option><option value="inferred">inferred</option><option value="behold">hinneh — behold</option></select>
-    <label>Pill</label><select id="cTy"><option value="">any</option>${types.map(t=>`<option>${t}</option>`).join('')}</select>
-    <input type="text" id="cQ" placeholder="search title, verse, text — e.g. Leah, Genesis 3, hineni">
-  </div><div id="cardList"></div>
-  <h3 style="margin:30px 0 4px;font-weight:normal;color:var(--accent);font-size:19px">The raw scanner — verse pairs</h3>`;
-}
-function renderScan(){
+function renderRawScan(){
   shown=60;
-  main.innerHTML=renderAllCardsBlock()+`<div class="filters">
+  main.innerHTML=`<div class="card" style="border-left:4px solid var(--accent)">
+  <b style="font-size:17px">Pair scanner — the raw 1000</b>
+  <div class="comment">The computational scan of the Torah: verse pairs sharing rare vocabulary, classified as inverted echoes (Seidel’s law), phrase repeats, echo clusters, and near-verbatim doubles. Click any row to expand it with the Hebrew, the shared roots highlighted, and the auto-derived pills.</div></div>
+  <div class="filters">
     <label>Type</label><select id="fType"><option value="">all</option><option value="i">inverted echo</option><option value="p">phrase repeat</option><option value="c">echo cluster</option><option value="d">near-verbatim</option></select>
     <label>Book</label><select id="fBook"><option value="">any</option>${['Genesis','Exodus','Leviticus','Numbers','Deuteronomy'].map(b=>`<option>${b}</option>`).join('')}</select>
     <label>Distance</label><select id="fNear"><option value="">any</option><option value="far">across passages</option><option value="near">within a passage</option></select>
@@ -731,8 +737,6 @@ function renderScan(){
   </div><div id="list"></div>`;
   ['fType','fBook','fNear','fFeat','fQ'].forEach(id=>document.getElementById(id).oninput=()=>{shown=60;drawList();});
   drawList();
-  ['cSec','cAt','cGz','cTy','cQ'].forEach(id=>document.getElementById(id).oninput=()=>{cardShown=12;drawCards();});
-  drawCards();
 }
 function drawList(){
   const t=document.getElementById('fType').value, bk=document.getElementById('fBook').value,
