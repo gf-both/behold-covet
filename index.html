@@ -681,6 +681,7 @@ const SECTIONS=[['curated','Curated highlights','entry'],['readings','Gaston’s
 const ALLCARDS=[];
 SECTIONS.forEach(([k,label,kind])=>{ (DATA[k]||[]).forEach(e=>ALLCARDS.push({tab:k,label,kind,e})); });
 function cardAt(e){ return (e.struct&&e.struct.at)||''; }
+let cardShown=12;
 function drawCards(){
   const sec=document.getElementById('cSec').value, at=document.getElementById('cAt').value,
         ty=document.getElementById('cTy').value, gz=document.getElementById('cGz').value,
@@ -697,11 +698,12 @@ function drawCards(){
     }
     return true;
   });
-  let html=`<div class="count">${hits.length} of ${ALLCARDS.length} cards</div>`;
-  hits.forEach(c=>{
+  let html=`<div class="count">${hits.length} of ${ALLCARDS.length} cards${hits.length>cardShown?` — showing ${cardShown}`:''}</div>`;
+  hits.slice(0,cardShown).forEach(c=>{
     html+=`<div style="color:var(--muted);font-size:12px;margin:14px 0 -8px">${c.label}</div>`;
     html+= c.kind==='entry' ? entryCards([c.e]) : testCards([c.e]);
   });
+  if(hits.length>cardShown) html+=`<div style="text-align:center;margin:10px 0"><button onclick="cardShown+=30;drawCards()" style="font:14px Georgia,serif;padding:8px 22px;border:1px solid var(--line);background:var(--card);border-radius:20px;cursor:pointer">show more cards (${hits.length-cardShown} left) — or scroll on to the 1000-pair scanner below</button></div>`;
   document.getElementById('cardList').innerHTML=html;
 }
 function renderAllCardsBlock(){
@@ -729,7 +731,7 @@ function renderScan(){
   </div><div id="list"></div>`;
   ['fType','fBook','fNear','fFeat','fQ'].forEach(id=>document.getElementById(id).oninput=()=>{shown=60;drawList();});
   drawList();
-  ['cSec','cAt','cGz','cTy','cQ'].forEach(id=>document.getElementById(id).oninput=()=>drawCards());
+  ['cSec','cAt','cGz','cTy','cQ'].forEach(id=>document.getElementById(id).oninput=()=>{cardShown=12;drawCards();});
   drawCards();
 }
 function drawList(){
