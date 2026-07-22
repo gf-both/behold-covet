@@ -480,10 +480,9 @@ function renderMilestones(){
 function renderQuestions(){
   let html=`<div class="card" style="max-width:760px;margin:0 auto 26px;padding:34px 40px">${DATA.qEssay}</div>`;
   html+=`<div class="card" style="border-left:4px solid var(--accent)">
-  <b style="font-size:17px">The questions — the whole pattern, told through interrogatives</b>
-  <div class="comment">Every question-marked verse in the Torah, found by morphology: <b>284</b> verses carry an interrogative marker (mi, mah, lamah, madua, ayeh, eich, the interrogative he…). The distribution is itself the finding: <b>Genesis 133 &middot; Exodus 56 &middot; Leviticus 3 &middot; Numbers 55 &middot; Deuteronomy 37</b>. Creation (Gen 1) asks nothing — the given world is declarative. The book of the fractured pairs asks most. And the heart-bound center of the scroll barely asks at all: three questions, two of which are one grieving exchange at the Torah’s exact middle. The arc the cards below trace: the Giver’s open <i>what</i> → the serpent’s disguised lack-question → the return questions (<i>ayeka; who told you?</i>) → the watch refused → the pair-wounds asking → bread named What → the donkey’s honest question → the daughters whose question enlarged the law → the Giver’s own <i>mi yiten</i> over the heart → the question handed to the son. Method caveats, per the emet rule: the inventory is marker-based — it includes indirect uses (‘to see WHAT he would call them’) and misses unmarked rhetorical questions (the serpent’s, most famously — which is its own card).</div>
+  <b style="font-size:17px">The full inventory</b>
+  <div class="comment">Every question-marked verse in the Torah, found by morphology: <b>284</b> verses carry an interrogative marker (mi, mah, lamah, madua, ayeh, eich, the interrogative he…) — <b>Genesis 133 &middot; Exodus 56 &middot; Leviticus 3 &middot; Numbers 55 &middot; Deuteronomy 37</b>. Method caveats, per the emet rule: the inventory is marker-based — it includes indirect uses (‘to see WHAT he would call them’) and misses unmarked rhetorical questions (the serpent’s, most famously — see question 2 above). Click any reference to open it on Sefaria.</div>
   <div class="src">WLC morphology, Ti-tagged tokens across all five books; readings are labeled readings.</div></div>`;
-  html+=testCards(DATA.questions);
   html+=`<h3 style="margin:30px 0 4px;font-weight:normal;color:var(--accent);font-size:19px">All 284 question-verses</h3>`;
   let curBook='';
   DATA.qList.forEach(v=>{
