@@ -10,3 +10,7 @@ An interactive research explorer by Gastón Frydlewski: the Gen 2:9 / 3:6 invers
 - `behold_covet_essay.md` — the essay
 - `behold_covet_book_outline.md` — book outline
 - `data/` — build scripts and verified datasets (rebuild requires `npm install morphhb` and `pip install pythonbible`; run `python3 build_html.py`)
+
+---
+
+© 2026 Gastón Frydlewski. All rights reserved. *The Look — It was never about the tree: essays and research compendium.* U.S. Copyright Office registration filed.
